@@ -12,7 +12,7 @@ const Allproducts=()=>{
     return(
         <div className={classes.main}>
             <div className={classes.card}>
-
+                
 
             </div>
 
