@@ -11,7 +11,7 @@ mongoose.connect(process.env.MONGO_URL).then(()=>{
     console.log(err);
 })
 
-app.use("",)
+app.use("",router)
 
 app.listen(0,()=>{
     console.log("server started");
