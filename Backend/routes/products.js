@@ -1,4 +1,4 @@
-import Product from '../models/products'
+import Product from '../models/products.js'
 import express from 'express'
 const router=express.Router();
 router.get('/:categoryname/products',async(req,res)=>{
@@ -20,8 +20,18 @@ catch(err){
 }
 });
 
+router.post('/add',async(req,res)=>{
+    const product=new Product(req.body);
+    try{
+        await product.save();
+        res.send({message:"added successfully"});
+    }
+    catch(err){
+        res.status(500).json({message:err.message});
+    }
+})
 
-app.get('/companies/:companyname/categories/:categoryname/products', (req, res) => {
+router.get('/companies/:companyname/categories/:categoryname/products', async (req, res) => {
     const companyname = req.params.companyname;
     const categoryname = req.params.categoryname;
     const top = parseInt(req.query.top);
@@ -32,7 +42,7 @@ app.get('/companies/:companyname/categories/:categoryname/products', (req, res) 
       return res.status(400).json({ error: 'Invalid input parameters' });
     }
   
-    Product.find({
+    await Product.find({
       company: companyname,
       category: categoryname,
       price: { $gte: minPrice, $lte: maxPrice }
