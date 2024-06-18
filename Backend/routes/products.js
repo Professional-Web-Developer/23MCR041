@@ -30,6 +30,15 @@ router.post('/add',async(req,res)=>{
         res.status(500).json({message:err.message});
     }
 })
+router.get('/all',async(req,res)=>{
+    try{
+        const products=await Product.find({});
+        res.json(products);
+    }
+    catch(err){
+        res.status(500).json({message:err.message});
+    }
+})
 
 router.get('/companies/:companyname/categories/:categoryname/products', async (req, res) => {
     const companyname = req.params.companyname;
